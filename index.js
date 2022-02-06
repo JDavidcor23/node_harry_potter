@@ -1,6 +1,9 @@
+//DEPENDENCIES
 const http = require("http")
 const fs = require("fs")
 const fetch = require('node-fetch');
+
+//FUNCTIONS
 const charactersHP = async()=>{
     const resp = await fetch("http://hp-api.herokuapp.com/api/characters")
     const data = await resp.json()
@@ -11,8 +14,11 @@ const replaceTemplate= (temp, character) => {
     output = output.replace(/{%NAME%}/g, character.name);
     return output;
 }
+// TEMPLATES
 const page = fs.readFileSync(`${__dirname}/characters.html`, "utf-8")
 const tempOverview = fs.readFileSync(`${__dirname}/home.html`, "utf-8")
+
+//SERVER
 const server = http.createServer(async(req, resp) =>{
     const pathname = req.url
     if (pathname === "/"){
